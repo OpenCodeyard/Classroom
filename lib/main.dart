@@ -1,5 +1,6 @@
 import 'package:classroom/app_navigation_controller.dart';
 import 'package:classroom/blocs/auth_bloc.dart';
+import 'package:classroom/blocs/classroom_bloc.dart';
 import 'package:classroom/blocs/navigation_bloc.dart';
 import 'package:classroom/blocs/user_bloc.dart';
 import 'package:classroom/firebase_options.dart';
@@ -53,6 +54,11 @@ class ClassroomApp extends StatelessWidget {
         ///Root Level Provider for User management
         ChangeNotifierProvider<UserBloc>(
           create: (context) => UserBloc(navigatorKey),
+        ),
+
+        ///Root Level Provider for classroom joining and creation
+        ChangeNotifierProvider<ClassroomBloc>(
+          create: (context) => ClassroomBloc(),
         ),
 
         ///Root Level Provider for navigation

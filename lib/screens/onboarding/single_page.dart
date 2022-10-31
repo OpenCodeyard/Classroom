@@ -1,11 +1,15 @@
+import 'package:classroom/blocs/auth_bloc.dart';
+import 'package:classroom/blocs/user_bloc.dart';
+import 'package:classroom/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 
 ///Unified class for single page of onboarding PageView
 class SinglePage extends StatelessWidget {
   final String imagePath, title, subtitle;
   final Widget nextButton;
-  final int index;
   final PageController pageController;
+  final AuthenticationBloc ab;
+  final UserBloc ub;
 
   const SinglePage({
     Key? key,
@@ -13,8 +17,9 @@ class SinglePage extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.nextButton,
-    required this.index,
     required this.pageController,
+    required this.ab,
+    required this.ub,
   }) : super(key: key);
 
   @override
@@ -65,11 +70,11 @@ class SinglePage extends StatelessWidget {
               ),
               onPressed: () {
                 ///TODO
-                // if (ab.inProgress) {
-                //   showSnackBar("Please wait. Login in progress");
-                //   return;
-                // }
-                // ab.authWithGoogle(nb,false);
+                if (ab.isLoading) {
+                  showSnackBar(context,"Please wait. Login in progress");
+                  return;
+                }
+                ab.signInWithGoogle(context, ub);
               },
               icon:
                   // ab.isGoogleSignInOngoing
