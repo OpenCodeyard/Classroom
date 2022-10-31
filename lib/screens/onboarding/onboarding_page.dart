@@ -1,4 +1,5 @@
 import 'package:classroom/blocs/auth_bloc.dart';
+import 'package:classroom/blocs/user_bloc.dart';
 import 'package:classroom/screens/onboarding/single_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,6 +43,7 @@ class OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     AuthenticationBloc ab = Provider.of<AuthenticationBloc>(context);
+    UserBloc ub = Provider.of<UserBloc>(context);
 
     Size size = MediaQuery.of(context).size;
     SmoothPageIndicator indicator = SmoothPageIndicator(
@@ -71,8 +73,9 @@ class OnboardingPageState extends State<OnboardingPage> {
                   subtitle:
                       "An online collaboration platform for teachers and their students that brings the best out of everyone",
                   nextButton: nextButton(ab),
-                  index: 0,
                   pageController: _pageController,
+                  ab: ab,
+                  ub: ub,
                 ),
                 SinglePage(
                   imagePath: "assets/images/onboard2.png",
@@ -80,8 +83,9 @@ class OnboardingPageState extends State<OnboardingPage> {
                   subtitle:
                       "Interact effectively with your students and manage them through dynamic classrooms accessible 24*7",
                   nextButton: nextButton(ab),
-                  index: 0,
                   pageController: _pageController,
+                  ab: ab,
+                  ub: ub,
                 ),
                 SinglePage(
                   imagePath: "assets/images/onboard3.png",
@@ -89,8 +93,9 @@ class OnboardingPageState extends State<OnboardingPage> {
                   subtitle: "Check your due assignments, upcoming exams and "
                       "allotted grade all from the comfort of your home",
                   nextButton: nextButton(ab),
-                  index: 1,
                   pageController: _pageController,
+                  ab: ab,
+                  ub: ub,
                 ),
                 SinglePage(
                   imagePath: "assets/images/onboard4.png",
@@ -99,8 +104,9 @@ class OnboardingPageState extends State<OnboardingPage> {
                       "Your are in control of your data. Your data and work "
                       "are protected by industry grade end-to-end encryption",
                   nextButton: nextButton(ab),
-                  index: 2,
                   pageController: _pageController,
+                  ab: ab,
+                  ub: ub,
                 ),
               ],
             ),

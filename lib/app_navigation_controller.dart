@@ -1,4 +1,6 @@
+import 'package:classroom/blocs/classroom_bloc.dart';
 import 'package:classroom/blocs/navigation_bloc.dart';
+import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +13,30 @@ class AppNavigationController extends StatefulWidget {
       _AppNavigationControllerState();
 }
 
-class _AppNavigationControllerState extends State<AppNavigationController> {
+class _AppNavigationControllerState extends State<AppNavigationController>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> _animation;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 260),
+    );
+
+    final curvedAnimation =
+        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+    _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
+    ClassroomBloc cb = Provider.of<ClassroomBloc>(context);
 
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return Scaffold(
@@ -37,77 +58,50 @@ class _AppNavigationControllerState extends State<AppNavigationController> {
         ),
       ),
       // drawer: const AppDrawer(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Visibility(
-        visible: showFab,
-        child: FloatingActionButton(
-          onPressed: () {
-            nb.changeNavIndex(2);
-          },
-          backgroundColor: Colors.deepPurpleAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: const BorderSide(color: Colors.white, width: 3),
-          ),
-          elevation: 4,
-          child: const Icon(
-            Icons.savings,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        color: Colors.white,
-        elevation: 18,
-        child: BottomNavigationBar(
-          elevation: 0,
-          currentIndex: nb.bottomNavIndex,
-          backgroundColor: Theme.of(context).primaryColor.withAlpha(0),
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: false,
-          selectedIconTheme: const IconThemeData(
-            color: Colors.deepPurpleAccent,
-          ),
-          selectedLabelStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: "PublicSans",
-            fontSize: nb.bottomNavIndex == 3 ? 12 : 14,
-            color: Colors.amberAccent,
-          ),
-          selectedItemColor: Colors.amberAccent,
-          unselectedIconTheme: IconThemeData(
-            color: Colors.deepPurpleAccent.withOpacity(0.6),
-          ),
-          onTap: (index) {
-            nb.changeNavIndex(index);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: getBottomNavBarIcon(FontAwesomeIcons.solidCircleUser),
-              label: "Profile",
+      floatingActionButton: !showFab
+          ? const SizedBox()
+          : FloatingActionBubble(
+              items: <Bubble>[
+                Bubble(
+                  title: "Join Class",
+                  iconColor: Colors.blue,
+                  bubbleColor: Colors.white,
+                  icon: Icons.join_inner,
+                  titleStyle: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    fontFamily: "PublicSans",
+                    fontWeight: FontWeight.bold,
+                  ),
+                  onPress: () async{
+                    await cb.joinClass(""); //TODO create dialog to fetch classroom ID
+                    _animationController.reverse();
+                  },
+                ),
+                Bubble(
+                  title: "Create Class",
+                  iconColor: Colors.blue,
+                  bubbleColor: Colors.white,
+                  icon: Icons.create,
+                  titleStyle: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    fontFamily: "PublicSans",
+                    fontWeight: FontWeight.bold,
+                  ),
+                  onPress: () {
+                    _animationController.reverse();
+                  },
+                ),
+              ],
+              animation: _animation,
+              onPress: () => _animationController.isCompleted
+                  ? _animationController.reverse()
+                  : _animationController.forward(),
+              iconColor: Colors.blue,
+              iconData: FontAwesomeIcons.circlePlus,
+              backGroundColor: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: getBottomNavBarIcon(FontAwesomeIcons.clipboardList),
-              label: "Activity",
-            ),
-            const BottomNavigationBarItem(
-              icon: SizedBox(
-                height: 30,
-              ),
-              label: "Get Cash",
-            ),
-            BottomNavigationBarItem(
-              icon: getBottomNavBarIcon(FontAwesomeIcons.clockRotateLeft),
-              label: "Payments",
-            ),
-            BottomNavigationBarItem(
-              icon: getBottomNavBarIcon(FontAwesomeIcons.coins),
-              label: "Repay",
-            ),
-          ],
-        ),
-      ),
       body: SizedBox(
         width: size.width,
         child: getBody(nb.bottomNavIndex),
