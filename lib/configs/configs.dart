@@ -13,6 +13,7 @@ class Config {
 
   ///Firestore Collections
   static const String fscUser = "users";
+  static const String fscClassroom = "classroom";
 
   ///FirebaseStorage
   static const String fsUser = "users/";
