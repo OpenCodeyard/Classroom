@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "791784054069",
+    "firebase_url": "https://classroom-2ba8b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "classroom-2ba8b",
+    "storage_bucket": "classroom-2ba8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791784054069:android:f0a87cbb161aed8d2f407c",
+        "android_client_info": {
+          "package_name": "com.shatanik.classroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791784054069-dcqg619qt2gtv141ga12uhsgf15p43b9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shatanik.classroom",
+            "certificate_hash": "b059346a24d5bf4a253581688c4773dde581dd72"
+          }
+        },
+        {
+          "client_id": "791784054069-5c0lp8447la3a6llth6ehldu5ddbj3sn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg4WEUWGd6GC5pn0nl4vyRzJ9Tdpnk8B0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791784054069-5c0lp8447la3a6llth6ehldu5ddbj3sn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "791784054069-9blu8vu5vedjcod6dv8uc1e0vqbi84ne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.classroom"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
