@@ -23,10 +23,11 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion localProperties.getProperty('flutter.compileSdkVersion').toInteger()
+    compileSdkVersion 31
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -47,8 +48,8 @@ android {
         applicationId "com.shatanik.classroom"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
-        targetSdkVersion localProperties.getProperty('flutter.targetSdkVersion').toInteger()
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -67,5 +68,6 @@ flutter {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

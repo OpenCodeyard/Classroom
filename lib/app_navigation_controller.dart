@@ -1,5 +1,6 @@
 import 'package:classroom/blocs/classroom_bloc.dart';
 import 'package:classroom/blocs/navigation_bloc.dart';
+import 'package:classroom/blocs/user_bloc.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -37,6 +38,7 @@ class _AppNavigationControllerState extends State<AppNavigationController>
     Size size = MediaQuery.of(context).size;
     NavigationBloc nb = Provider.of<NavigationBloc>(context);
     ClassroomBloc cb = Provider.of<ClassroomBloc>(context);
+    UserBloc ub = Provider.of<UserBloc>(context);
 
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return Scaffold(
@@ -73,8 +75,8 @@ class _AppNavigationControllerState extends State<AppNavigationController>
                     fontFamily: "PublicSans",
                     fontWeight: FontWeight.bold,
                   ),
-                  onPress: () async{
-                    await cb.joinClass(""); //TODO create dialog to fetch classroom ID
+                  onPress: () async {
+                    await cb.joinClass(context, "EnterClassroomID", ub.uid);
                     _animationController.reverse();
                   },
                 ),
