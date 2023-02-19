@@ -91,7 +91,8 @@ class _AppNavigationControllerState extends State<AppNavigationController>
                     fontFamily: "PublicSans",
                     fontWeight: FontWeight.bold,
                   ),
-                  onPress: () {
+                  onPress: () async {
+                    await cb.createClass(context, "ClassName", ub.uid, "ClassColor", "Description");
                     _animationController.reverse();
                   },
                 ),
