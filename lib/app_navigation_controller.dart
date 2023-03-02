@@ -1,6 +1,7 @@
 import 'package:classroom/blocs/classroom_bloc.dart';
 import 'package:classroom/blocs/navigation_bloc.dart';
 import 'package:classroom/blocs/user_bloc.dart';
+import 'package:classroom/screens/Home/createclass_page.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -92,7 +93,10 @@ class _AppNavigationControllerState extends State<AppNavigationController>
                     fontWeight: FontWeight.bold,
                   ),
                   onPress: () async {
-                    await cb.createClass(context, "ClassName", ub.uid, "ClassColor", "Description");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateClass()));
                     _animationController.reverse();
                   },
                 ),
